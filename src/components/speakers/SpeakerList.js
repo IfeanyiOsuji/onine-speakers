@@ -1,18 +1,18 @@
 import SpeakerLine from "./SpeakerLine";
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { resolve } from "styled-jsx/css";
+import { useEffect, useReducer, useState } from "react";
 
 
 
-function List({speakers, updateSpeaker}) {
+
+function List({state, dispatch}) {
   const [updatingId, setUpdatingId] = useState(0);
   const isPending = false;
 
   function toggleFavoriteSpeaker(speakerRec) {
 
     const updatedSpeakerRec = {...speakerRec, favorite:!speakerRec.favorite}
-     updateSpeaker(updatedSpeakerRec);
+     dispatch({type:'updaterecord', speaker: updatedSpeakerRec});
      async function updateAsyncRef(rec){
         setUpdatingId(rec.id)
         await axios.put(`/api/speakers/${rec.id}`, updatedSpeakerRec)
@@ -51,7 +51,7 @@ function List({speakers, updateSpeaker}) {
       </div>
 
       <div className="row g-3">
-        {speakers.map(function (speakerRec) {
+        {state.speakers.map(function (speakerRec) {
           const highlight = false;
           return (
             <SpeakerLine
@@ -68,36 +68,61 @@ function List({speakers, updateSpeaker}) {
   );
 }
 
+
+
 const SpeakerList = ({darkTheme}) => {
-  const [speakers, setSpeakers] = useState([]);
-  const [loading, setLoading] = useState(true);
+
+  const reduce = (state, action) =>{
+    switch(action.type){
+      case 'speakerloaded':
+        return {...state, loading: false, speakers:action.speakers}
+
+      case 'setloadingstatus':
+        return {...state, loading:true}
+
+      case 'updaterecord':
+        const updatedSpeaker = state.speakers.map(rec => action.speaker.id === rec.id ? action.speaker: rec);
+        return {...state, speakers:updatedSpeaker}
+
+      default:
+        throw new Error(`case failure. type : ${action.type}`)
+
+
+    }
+}
+
+  
+const initialState = {
+  speakers : [],
+  loading : true
+}
+  const [state, dispatch] = useReducer(reduce, initialState);
   
 
-  const delay = (ms) => setInterval(resolve => (resolve, ms));
+ // const delay = (ms) => setInterval(resolve => (resolve, ms));
 
   useEffect(()=>{
     async function getDataAsync(){
+      dispatch({type:'setloadingstatus'})
       const result = await axios('/api/speakers');
-      delay(2000)
-      setSpeakers(result.data);
-      setLoading(false);
+      dispatch({type: 'speakerloaded', speakers:result.data});
+      
     }
     getDataAsync();
     
   },
    []);
 
-   function updateSpeaker(speakerRec){
-        const updatedSpeaker = speakers.map(rec => speakerRec.id === rec.id ? speakerRec : rec);
-        setSpeakers(updatedSpeaker);
-   }
+  //  function updateSpeaker(speakerRec){
+  //         dispatch({type:'updaterecord', speaker:speakerRec})
+  //  }
 
-   if(loading) return <div className="container"> Loading...</div>
+   if(state.loading) return <div className="container"> Loading...</div>
 
   //const darkTheme = false;
   return (
     <div className={darkTheme ? "theme-dark" : "theme-light"}>
-      <List speakers = {speakers} updateSpeaker={updateSpeaker}/>
+      <List state = {state} dispatch={dispatch}/>
     </div>
   );
 };
