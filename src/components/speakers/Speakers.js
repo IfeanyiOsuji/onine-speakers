@@ -3,8 +3,8 @@ import { speakerList } from "../../../speakersData";
 import SpeakerMenu from "./SpeakerMenu";
 import SpeakersList from "./SpeakersList";
 
-function Speakers() {
-  const darkTheme = false;
+function Speakers({darkTheme}) {
+  //const darkTheme = false;
 
   return (
     <div className={darkTheme ? "theme-dark" : "theme-light"}>

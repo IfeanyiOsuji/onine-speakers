@@ -1,10 +1,10 @@
-export default function AppMenu() {
+export default function AppMenu({darkTheme, setDarkTheme}) {
   const { setRoute } = {
     setRoute: (route) => {
       window.location.href = route;
     },
   };
-  const { toggleTheme } = { toggleTheme: () => {} };
+  //const { toggleTheme } = { toggleTheme: () => setDarkTheme(!darkTheme) };
 
   return (
     <header className="d-flex justify-content-center py-3">
@@ -47,9 +47,7 @@ export default function AppMenu() {
               autoComplete="off"
               id="themeToggle"
               defaultChecked={false}
-              onClick={() => {
-                toggleTheme();
-              }}
+              onClick={() => setDarkTheme(!darkTheme)}
             />
             <label htmlFor="themeToggle" className="themeToggleCheckbox-label">
               <i className="fas fa-moon"></i>

@@ -1,5 +1,5 @@
-export default function About() {
-  const darkTheme = false;
+export default function About({darkTheme}) {
+ // const darkTheme = false;
   return (
     <div className={darkTheme ? "theme-dark" : "theme-light"}>
       <div className="container">
