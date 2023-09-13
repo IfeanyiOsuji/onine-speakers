@@ -1,9 +1,13 @@
-export default function AppMenu({darkTheme, setDarkTheme}) {
+import { useContext } from "react";
+import { ThemeContext } from "../../App";
+
+export default function AppMenu() {
   const { setRoute } = {
     setRoute: (route) => {
       window.location.href = route;
     },
   };
+  const {toggleTheme} = useContext(ThemeContext);
   //const { toggleTheme } = { toggleTheme: () => setDarkTheme(!darkTheme) };
 
   return (
@@ -47,7 +51,7 @@ export default function AppMenu({darkTheme, setDarkTheme}) {
               autoComplete="off"
               id="themeToggle"
               defaultChecked={false}
-              onClick={() => setDarkTheme(!darkTheme)}
+              onClick={() => {toggleTheme()}}
             />
             <label htmlFor="themeToggle" className="themeToggleCheckbox-label">
               <i className="fas fa-moon"></i>

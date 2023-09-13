@@ -1,12 +1,15 @@
 import SpeakerLine from "./SpeakerLine";
 import axios from "axios";
-import { useEffect, useReducer, useState } from "react";
+import { useContext, useEffect, useReducer, useState } from "react";
+import { ThemeContext } from "../../App";
 
 
 
 
 function List({state, dispatch}) {
   const [updatingId, setUpdatingId] = useState(0);
+
+ 
   const isPending = false;
 
   function toggleFavoriteSpeaker(speakerRec) {
@@ -70,8 +73,8 @@ function List({state, dispatch}) {
 
 
 
-const SpeakerList = ({darkTheme}) => {
-
+const SpeakerList = () => {
+  const {darkTheme} = useContext(ThemeContext)
   const reduce = (state, action) =>{
     switch(action.type){
       case 'speakerloaded':
@@ -113,9 +116,7 @@ const initialState = {
   },
    []);
 
-  //  function updateSpeaker(speakerRec){
-  //         dispatch({type:'updaterecord', speaker:speakerRec})
-  //  }
+ 
 
    if(state.loading) return <div className="container"> Loading...</div>
 

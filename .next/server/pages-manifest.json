@@ -2,5 +2,5 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/demo-useref": "pages/demo-useref.js"
+  "/[[...route_name]]": "pages/[[...route_name]].js"
 }
