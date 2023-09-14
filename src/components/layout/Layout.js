@@ -5,8 +5,9 @@ import Speakers from "../speakers/Speakers";
 import About from "../about/About";
 import Speaker from "../speakers/Speaker";
 import SpeakerList from "../speakers/SpeakerList";
-import { useContext, useState } from "react";
-import { ThemeContext } from "../../App";
+import { useContext} from "react";
+import { ThemeContext } from "../contexts/themeContext";
+
 
 // Layout does not use children but instead uses what comes from AppRouteProvider
 export default function Layout({ url }) {

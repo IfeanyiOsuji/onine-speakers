@@ -1,21 +1,24 @@
 import { createContext, useState } from "react";
 import Layout from "./components/layout/Layout";
-export const ThemeContext = createContext();
+import ThemeContextProvider from "./components/contexts/themeContext";
+//export const ThemeContext = createContext();
 const App = ({ url }) => {
-  const [darkTheme, setDarkTheme] = useState(false);
+  //const [darkTheme, setDarkTheme] = useState(false);
 
-  const toggleTheme = () => setDarkTheme(!darkTheme)
+  //const toggleTheme = () => setDarkTheme(!darkTheme)
   
-  let value = {
-    darkTheme,
+  // let value = {
+  //   darkTheme,
 
-    toggleTheme
-  }
+  //   toggleTheme
+  // }
+
+
 
   return (
-    <ThemeContext.Provider value={value}>
+    <ThemeContextProvider>
   <Layout url={url} />
-  </ThemeContext.Provider>
+  </ThemeContextProvider>
   )
 };
 
