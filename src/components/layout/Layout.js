@@ -5,7 +5,7 @@ import Speakers from "../speakers/Speakers";
 import About from "../about/About";
 import Speaker from "../speakers/Speaker";
 import SpeakerList from "../speakers/SpeakerList";
-import ThemeContextProvider from "../contexts/themeContext";
+import ThemeContextProvider from "../contexts/ThemeContext";
 
 
 // Layout does not use children but instead uses what comes from AppRouteProvider
