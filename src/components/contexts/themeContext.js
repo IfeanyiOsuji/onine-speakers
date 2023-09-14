@@ -3,7 +3,7 @@ import { useTheme } from "../hooks/useTheme";
 
 export const ThemeContext = createContext({});
 
-const ThemeContextProvider = ({children, initialDarkTheme = false})=>{
+const ThemeContextProvider = ({children})=>{
    
     const value = useTheme();
 
