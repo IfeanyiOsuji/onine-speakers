@@ -1,6 +1,12 @@
+import { useContext, useState } from "react";
 import AddSpeakerDialog from "./AddSpeakerDialog";
+import { SpeakerDataContext } from "../contexts/SpeakerDataContext";
 
 export default function SpeakerMenu() {
+  const {speakerList} = useContext(SpeakerDataContext);
+  const [speakerListMenu, setSpeakerListMenu] = useState(speakerList);
+  console.log(speakerList)
+
   const {
     speakingSaturday,
     setSpeakingSaturday,
