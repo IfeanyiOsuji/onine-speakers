@@ -1,11 +1,12 @@
 import { useContext, useState } from "react";
 import AddSpeakerDialog from "./AddSpeakerDialog";
-import { SpeakerDataContext } from "../contexts/SpeakerDataContext";
+import { SpeakerDataContext} from "../contexts/SpeakerDataContext";
+import { SpeakerMenuContext } from "../contexts/SpeakerMenuContext";
 
 export default function SpeakerMenu() {
   const {speakerList} = useContext(SpeakerDataContext);
-  const [speakerListMenu, setSpeakerListMenu] = useState(speakerList);
-  console.log(speakerList)
+  //const [speakerListMenu, setSpeakerListMenu] = useState(speakerList);
+  
 
   const {
     speakingSaturday,
@@ -14,16 +15,9 @@ export default function SpeakerMenu() {
     setSpeakingSunday,
     searchText,
     setSearchText,
-  } = {
-    speakingSaturday: true,
-    setSpeakingSaturday: () => {},
-    speakingSunday: true,
-    setSpeakingSunday: () => {},
-    searchText: "",
-    setSearchText: () => {},
-  };
-
+  } = useContext(SpeakerMenuContext);
   return (
+    
     <div
       className="btn-toolbar"
       role="toolbar"
@@ -74,5 +68,6 @@ export default function SpeakerMenu() {
         </div>
       </div>
     </div>
+    
   );
 }
