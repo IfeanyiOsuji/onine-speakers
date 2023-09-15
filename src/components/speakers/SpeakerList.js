@@ -1,7 +1,7 @@
 import SpeakerLine from "./SpeakerLine";
 import axios from "axios";
 import { useContext, useEffect, useReducer, useState } from "react";
-import { ThemeContext } from "../contexts/themeContext";
+import { ThemeContext } from "../contexts/ThemeContext";
 
 
 

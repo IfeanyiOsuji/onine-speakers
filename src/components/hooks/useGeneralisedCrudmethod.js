@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 
 
 const LOADING_STATUS = ['loading', 'errored', 'success']
@@ -134,4 +134,15 @@ function useGeneralisedCrudMethods(url, errorNotification){
             }
         }
 
+        return {
+            data,
+            loadingStatus,
+            error,
+            createRecord,
+            updateRecord,
+            deleteRecord
+        }
+
     }
+
+    export default useGeneralisedCrudMethods;
