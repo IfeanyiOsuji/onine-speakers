@@ -15,14 +15,17 @@ function Speakers() {
   return (
     <SpeakerMenuContextProvider>
     <div className={darkTheme ? "theme-dark" : "theme-light"}>
-      <SpeakerMenu />
+    <SpeakerDataProvider>
+       <SpeakerMenu />
       <div className="container">
         <div className="row g-4">
-          <SpeakerDataProvider>
+         
           <SpeakersList />
-          </SpeakerDataProvider>
+      
         </div>
+       
       </div>
+      </SpeakerDataProvider>
     </div>
     </SpeakerMenuContextProvider>
   );

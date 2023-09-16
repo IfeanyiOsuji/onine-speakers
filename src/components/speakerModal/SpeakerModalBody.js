@@ -8,8 +8,8 @@ export default function NotesModalBody() {
     setModalSpeakerFirstName,
     modalSpeakerLastName,
     setModalSpeakerLastName,
-    modalSpeakerImageUrl,
-    setModalSpeakerImageUrl,
+    modalSpeakerImgUrl,
+    setModalSpeakerImgUrl,
     modalSpeakerEmail,
     setModalSpeakerEmail,
   } = useContext(SpeakerModalContext);
@@ -71,9 +71,9 @@ export default function NotesModalBody() {
                 <div className="note-title">
                   <label>Speaker Image URL:</label>
                   <input
-                    value={modalSpeakerImageUrl}
+                    value={modalSpeakerImgUrl}
                     onChange={(event) => {
-                      setModalSpeakerImageUrl(event.target.value);
+                      setModalSpeakerImgUrl(event.target.value);
                     }}
                     type="text"
                     className="form-control"

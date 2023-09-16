@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import AddSpeakerDialog from "./AddSpeakerDialog";
 import { SpeakerDataContext} from "../contexts/SpeakerDataContext";
 import { SpeakerMenuContext } from "../contexts/SpeakerMenuContext";
+import SpeakerModalProvider from "../contexts/SpeakerModalContext";
 
 export default function SpeakerMenu() {
   const {speakerList} = useContext(SpeakerDataContext);
@@ -64,7 +65,9 @@ export default function SpeakerMenu() {
           </label>
         </div>
         <div className="input-group">
+          <SpeakerModalProvider>
           <AddSpeakerDialog />
+          </SpeakerModalProvider>
         </div>
       </div>
     </div>

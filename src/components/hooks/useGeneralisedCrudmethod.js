@@ -53,6 +53,7 @@ function useGeneralisedCrudMethods(url, errorNotification){
             });
             await axios.post(`${url}/${createObject.id}`, createObject);
             if(callbackDone)callbackDone();
+            console.log('created')
         }
         catch(e){
             setData(startingData);
