@@ -1,6 +1,6 @@
 import Header from "./Header";
 import AppMenu from "./AppMenu";
-import SpeakerModal from "../speakerModal/SpeakerModal";
+
 import Speakers from "../speakers/Speakers";
 import About from "../about/About";
 import Speaker from "../speakers/Speaker";
@@ -21,7 +21,7 @@ export default function Layout({ url }) {
       {url === "/" && <Speakers />}
       {url.startsWith("/speaker/") && <Speaker id={speakerId} />}
       {url.startsWith("/speakerlist") && <SpeakerList />}
-      {url.startsWith("/speakerpopup") && <SpeakerModal modalShow={true} />}
+     
     </ThemeContextProvider>
   );
 }
