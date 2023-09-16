@@ -1,3 +1,6 @@
+import { useContext } from "react";
+import { SpeakerModalContext } from "../contexts/SpeakerModalContext";
+
 export default function EditSpeakerDialog({
   id,
   firstName,
@@ -16,26 +19,9 @@ export default function EditSpeakerDialog({
     setModalSpeakerLastName,
     modalSpeakerEmail,
     setModalSpeakerEmail,
-    modalSpeakerImageUrl,
-    setModalSpeakerImageUrl,
-  } = {
-    setModalShow: (show) => {
-      if (show === true) {
-        window.location.href = "/speakerpopup";
-      }
-    },
-    modalShow: false,
-    modalSpeakerId: id,
-    setModalSpeakerId: () => {},
-    modalSpeakerFirstName: firstName,
-    setModalSpeakerFirstName: () => {},
-    modalSpeakerLastName: lastName,
-    setModalSpeakerLastName: () => {},
-    modalSpeakerEmail: email,
-    setModalSpeakerEmail: () => {},
-    modalSpeakerImageUrl: imageUrl,
-    setModalSpeakerImageUrl: () => {},
-  };
+    modalSpeakerImgUrl,
+    setModalSpeakerImgUrl,
+  } = useContext(SpeakerModalContext)
 
   return (
     <button
@@ -44,7 +30,7 @@ export default function EditSpeakerDialog({
         setModalSpeakerId(id);
         setModalSpeakerFirstName(firstName);
         setModalSpeakerLastName(lastName);
-        setModalSpeakerImageUrl(imageUrl);
+        setModalSpeakerImgUrl(imageUrl);
         setModalSpeakerEmail(email);
         setModalShow(true);
       }}

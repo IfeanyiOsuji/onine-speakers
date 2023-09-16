@@ -1,3 +1,6 @@
+import { useContext } from "react";
+import { SpeakerModalContext } from "../contexts/SpeakerModalContext";
+
 export default function NotesModalBody() {
   const {
     modalSpeakerId,
@@ -5,21 +8,11 @@ export default function NotesModalBody() {
     setModalSpeakerFirstName,
     modalSpeakerLastName,
     setModalSpeakerLastName,
-    modalSpeakerImageUrl,
-    setModalSpeakerImageUrl,
+    modalSpeakerImgUrl,
+    setModalSpeakerImgUrl,
     modalSpeakerEmail,
     setModalSpeakerEmail,
-  } = {
-    modalSpeakerId: 999,
-    modalSpeakerFirstName: "",
-    setModalSpeakerFirstName: () => {},
-    modalSpeakerLastName: "",
-    setModalSpeakerLastName: () => {},
-    modalSpeakerImageUrl: "",
-    setModalSpeakerImageUrl: () => {},
-    modalSpeakerEmail: "",
-    setModalSpeakerEmail: () => {},
-  };
+  } = useContext(SpeakerModalContext);
   return (
     <div className="modal-body">
       <div className="notes-box">
@@ -78,9 +71,9 @@ export default function NotesModalBody() {
                 <div className="note-title">
                   <label>Speaker Image URL:</label>
                   <input
-                    value={modalSpeakerImageUrl}
+                    value={modalSpeakerImgUrl}
                     onChange={(event) => {
-                      setModalSpeakerImageUrl(event.target.value);
+                      setModalSpeakerImgUrl(event.target.value);
                     }}
                     type="text"
                     className="form-control"
