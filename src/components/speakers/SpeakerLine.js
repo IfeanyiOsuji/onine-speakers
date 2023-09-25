@@ -1,12 +1,19 @@
+import { memo, useContext } from "react";
 import FavoriteSpeakerToggleLine from "./FavoriteSpeakerToggleLine";
 import SpeakerImageToggleOnScroll from "./SpeakerImageToggleOnScroll";
+import { SpeakerDataContext } from "../contexts/SpeakerDataContext";
 
-const SpeakerLine = ({
+const SpeakerLine = memo(({
   speakerRec,
-  toggleFavoriteSpeaker,
   updating,
+  toggleFavoriteSpeaker,
   highlight,
 }) => {
+
+ console.log(speakerRec.firstName + ' ' + speakerRec.lastName +" called")
+  
+  
+ 
   return (
     <div className="col-xl-12 col-md-12">
       <div className="card border-0 speaker-list">
@@ -56,6 +63,6 @@ const SpeakerLine = ({
       </div>
     </div>
   );
-};
+});
 
 export default SpeakerLine;

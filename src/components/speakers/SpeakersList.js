@@ -1,13 +1,21 @@
-import React, { useContext } from "react";
+import React, { useContext, useMemo } from "react";
 import SpeakerDetail from "./SpeakerDetail";
 import { SpeakerDataContext } from "../contexts/SpeakerDataContext";
 import useSpeakerSortAndFilter  from "../hooks/useSpeakerSortAndFilter";
+import { SpeakerMenuContext } from "../contexts/SpeakerMenuContext";
 
 export default function SpeakersList() {
   
   const {speakerList, loadingStatus} = useContext(SpeakerDataContext);
+  
+  console.log(speakerList)
+  const {speakingSaturday,  speakingSunday, searchText} = useContext(SpeakerMenuContext)
 
-  const speakerFiltered = useSpeakerSortAndFilter(speakerList);
+const speakerListJson = JSON.stringify(speakerList);
+
+  const speakerFiltered = useMemo(()=>useSpeakerSortAndFilter(
+    speakerList, speakingSaturday,  speakingSunday, searchText), 
+    [speakerListJson,speakingSaturday, speakingSunday, searchText, loadingStatus]);
 
 
   if(loadingStatus === 'loading'){
