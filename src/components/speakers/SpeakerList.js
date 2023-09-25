@@ -1,6 +1,6 @@
 import SpeakerLine from "./SpeakerLine";
 import axios from "axios";
-import { useCallback, useContext, useEffect, useReducer, useState } from "react";
+import { useCallback, useContext, useDeferredValue, useEffect, useReducer, useState } from "react";
 import { ThemeContext } from "../contexts/ThemeContext";
 import { SpeakerDataContext, SpeakerDataProvider } from "../contexts/SpeakerDataContext";
 import { SpeakerMenuContext } from "../contexts/SpeakerMenuContext";
@@ -12,8 +12,9 @@ import useSpeakerSortAndFilter from "../hooks/useSpeakerSortAndFilter";
 
 function List({state, dispatch}) {
   const [updatingId, setUpdatingId] = useState(0);
+  const [searchState, setSearchState] = useState("");
 
-  
+  const highlighChars = useDeferredValue(searchState);
 
 
   const isPending = false;
@@ -45,8 +46,8 @@ function List({state, dispatch}) {
             <div className="toolbar-search w-100">
               
               <input
-                value=""
-                onChange={(event) => {}}
+                value= {searchState}
+                onChange={(event) => setSearchState(event.target.value)}
                 type="text"
                 className="form-control"
                 placeholder="Highlight Names"
@@ -63,7 +64,9 @@ function List({state, dispatch}) {
 
       <div className="row g-3">
         {state.speakers.map(function (speakerRec) {
-          const highlight = false;
+          const highlight = highlighChars?.length > 0 && (speakerRec.firstName?.toLowerCase()
+          + speakerRec.lastName?.toLowerCase()
+          ).includes(highlighChars?.toLocaleLowerCase()) ? true : false;
           return (
             <SpeakerLine
               key={speakerRec.id}
@@ -87,7 +90,7 @@ function List({state, dispatch}) {
     switch(action.type){
       case 'speakerloaded':
         
-        return {...state, loading: false, speakers:action.speakers}
+        return {...state, loading: false, speakers:[...action.speakers, ...createDummySpeakers(8000)]}
 
       case 'setloadingstatus':
         return {...state, loading:true}
@@ -144,3 +147,26 @@ const initialState = {
 };
 
 export default SpeakerList;
+
+function createDummySpeakers(numToAdd){
+  let speakers = [];
+   for(let increment = 0; increment < numToAdd; increment++){
+    speakers.push({
+      id : 1000 + increment,
+      firstName : `Craig${increment}`,
+      lastName : `Mantle${increment}`,
+      favorite : false,
+      bio : 'fake bio',
+      company : 'fake company',
+      twitterHandle : `fakeTwitterHandle${increment}`,
+      userBioShort : `fakeShortBio${increment}`,
+      imageUrl : "",
+      email : `fakeEmail${increment}@codecamp.net`
+
+    });
+
+   }
+   return speakers;
+
+}
+
