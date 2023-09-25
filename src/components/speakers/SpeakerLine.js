@@ -1,9 +1,9 @@
-import { useContext } from "react";
+import { memo, useContext } from "react";
 import FavoriteSpeakerToggleLine from "./FavoriteSpeakerToggleLine";
 import SpeakerImageToggleOnScroll from "./SpeakerImageToggleOnScroll";
 import { SpeakerDataContext } from "../contexts/SpeakerDataContext";
 
-const SpeakerLine = ({
+const SpeakerLine = memo(({
   speakerRec,
   updating,
   toggleFavoriteSpeaker,
@@ -63,6 +63,6 @@ const SpeakerLine = ({
       </div>
     </div>
   );
-};
+});
 
 export default SpeakerLine;
