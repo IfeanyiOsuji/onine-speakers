@@ -2,6 +2,9 @@ import SpeakerLine from "./SpeakerLine";
 import axios from "axios";
 import { useContext, useEffect, useReducer, useState } from "react";
 import { ThemeContext } from "../contexts/ThemeContext";
+import { SpeakerDataContext, SpeakerDataProvider } from "../contexts/SpeakerDataContext";
+import { SpeakerMenuContext } from "../contexts/SpeakerMenuContext";
+import useSpeakerSortAndFilter from "../hooks/useSpeakerSortAndFilter";
 
 
 
@@ -10,7 +13,9 @@ import { ThemeContext } from "../contexts/ThemeContext";
 function List({state, dispatch}) {
   const [updatingId, setUpdatingId] = useState(0);
 
- 
+  
+
+
   const isPending = false;
 
   function toggleFavoriteSpeaker(speakerRec) {
@@ -20,12 +25,13 @@ function List({state, dispatch}) {
      async function updateAsyncRef(rec){
         setUpdatingId(rec.id)
         await axios.put(`/api/speakers/${rec.id}`, updatedSpeakerRec)
-
         setUpdatingId(0)
      }
      updateAsyncRef(updatedSpeakerRec);
 
   }
+
+  //if(loadingStatus === 'loading') return <div className="container"> Loading...</div>
 
   return (
     <div className="container">
@@ -37,6 +43,7 @@ function List({state, dispatch}) {
         >
           <div className="toolbar-trigger mb-3 flex-grow-04">
             <div className="toolbar-search w-100">
+              
               <input
                 value=""
                 onChange={(event) => {}}
@@ -62,7 +69,7 @@ function List({state, dispatch}) {
               key={speakerRec.id}
               speakerRec={speakerRec}
               updating={updatingId === speakerRec.id ? updatingId : 0}
-              toggleFavoriteSpeaker={() => toggleFavoriteSpeaker(speakerRec)}
+              toggleFavoriteSpeaker = {() => toggleFavoriteSpeaker(speakerRec)}
               highlight={highlight}
             />
           );
@@ -74,11 +81,12 @@ function List({state, dispatch}) {
 
 
 
-const SpeakerList = () => {
+ const SpeakerList = () => {
   const {darkTheme} = useContext(ThemeContext)
   const reduce = (state, action) =>{
     switch(action.type){
       case 'speakerloaded':
+        
         return {...state, loading: false, speakers:action.speakers}
 
       case 'setloadingstatus':
@@ -109,6 +117,7 @@ const initialState = {
     async function getDataAsync(){
       dispatch({type:'setloadingstatus'})
       const result = await axios('/api/speakers');
+      
       dispatch({type: 'speakerloaded', speakers:result.data});
       
     }
@@ -118,14 +127,19 @@ const initialState = {
    []);
 
  
-
+  
    if(state.loading) return <div className="container"> Loading...</div>
 
-  //const darkTheme = false;
+  
+  
   return (
+    
     <div className={darkTheme ? "theme-dark" : "theme-light"}>
-      <List state = {state} dispatch={dispatch}/>
+     
+      <List state ={state} dispatch={dispatch}/>
+     
     </div>
+   
   );
 };
 

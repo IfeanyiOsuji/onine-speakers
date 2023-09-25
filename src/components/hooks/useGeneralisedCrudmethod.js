@@ -19,15 +19,17 @@ function useGeneralisedCrudMethods(url, errorNotification){
         ? e?.message + ' url ' + url 
         : e?.message + e?.response?.data;
 
-        console.log(errorString);
+        
         return errorString;
     }
 
     useEffect(()=>{
         async function getData(){
             try{
+                
                 setLoadingStatus(LOADING_STATUS[0]);
-                const result = axios.get(url);
+                const result = await axios.get(url);
+                console.log(result)
                 setData((await result).data);
                 setLoadingStatus(LOADING_STATUS[2]);
             }
@@ -36,6 +38,7 @@ function useGeneralisedCrudMethods(url, errorNotification){
                 setLoadingStatus(LOADING_STATUS[1]);
             }
         }
+        
         getData();
     },
     [url]);

@@ -1,6 +1,11 @@
 import path from "path";
 import fs from "fs";
 
+export const config = {
+  api: {
+    externalResolver: true,
+  },
+}
 const { promisify } = require("util");
 const readFile = promisify(fs.readFile);
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
